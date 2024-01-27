@@ -9,7 +9,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     float playerSpeed = 10;
 
+    [SerializeField] private AudioSource testSFX;
+
     bool isPlayerMovementKeyPressed;
+    bool isSoundPlayed;
 
     void Awake()
     {
@@ -22,24 +25,42 @@ public class Player : MonoBehaviour
         {
             playerRigidbody.AddForce(playerSpeed * Vector2.up);
             isPlayerMovementKeyPressed = true;
+            if(!isSoundPlayed)
+            {
+                StartCoroutine(PlayStepSound());
+            }
         }
         else if(Input.GetKey(KeyCode.DownArrow))
         {
             playerRigidbody.AddForce(playerSpeed * Vector2.down);
             isPlayerMovementKeyPressed = true;
+            if(!isSoundPlayed)
+            {
+                StartCoroutine(PlayStepSound());
+            }
         }
         else if(Input.GetKey(KeyCode.LeftArrow))
         {
             playerRigidbody.AddForce(playerSpeed * Vector2.left);
             isPlayerMovementKeyPressed = true;
+            if(!isSoundPlayed)
+            {
+                StartCoroutine(PlayStepSound());
+            }
         }
         else if(Input.GetKey(KeyCode.RightArrow))
         {
             playerRigidbody.AddForce(playerSpeed * Vector2.right);
             isPlayerMovementKeyPressed = true;
+
+            if(!isSoundPlayed)
+            {
+                StartCoroutine(PlayStepSound());
+            }
         }
         else
         {
+            
             isPlayerMovementKeyPressed = false;
         }
 
@@ -48,4 +69,13 @@ public class Player : MonoBehaviour
             playerRigidbody.velocity = Vector2.zero;
         }
     }
+
+    IEnumerator PlayStepSound()
+    {
+        testSFX.Play();
+        isSoundPlayed = true;
+        yield return new WaitForSeconds(0.3f);
+        isSoundPlayed = false;
+    }
 }
+
