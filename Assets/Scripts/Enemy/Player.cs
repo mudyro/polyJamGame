@@ -9,7 +9,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     float playerSpeed = 10;
 
-    [SerializeField] private AudioSource testSFX;
+    [SerializeField] private AudioSource footstepSFX;
+    [SerializeField] private AudioSource playerHitSFX;
+    
 
     bool isPlayerMovementKeyPressed;
     bool isSoundPlayed;
@@ -72,10 +74,19 @@ public class Player : MonoBehaviour
 
     IEnumerator PlayStepSound()
     {
-        testSFX.Play();
+        footstepSFX.Play();
         isSoundPlayed = true;
         yield return new WaitForSeconds(0.3f);
         isSoundPlayed = false;
     }
+
+public void OnCollisionEnter2D(Collision2D collision){
+if(collision.gameObject.tag == "CollisionTag"){
+    playerHitSFX.Play();
+}
+}
+
+
+
 }
 
